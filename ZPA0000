@@ -1,0 +1,13 @@
+@EndUserText.label : 'Employee master'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #ALLOWED
+define table zpa0000 {
+
+  key client : abap.clnt not null;
+  key perid  : abap.sstring(15) not null;
+  name       : abap.char(20);
+  age        : abap.int1;
+
+}
