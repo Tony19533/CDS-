@@ -1,0 +1,71 @@
+CLASS zcl_zpa001_gen_data01 DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES if_oo_adt_classrun .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_zpa001_gen_data01 IMPLEMENTATION.
+
+
+  METHOD if_oo_adt_classrun~main.
+     DATA: ls_ZPA0001_table TYPE zpa0001. " Replace zyour_table_name with your actual table name
+
+        " Insert first record
+        ls_ZPA0001_table-doj = '19801002'.
+        ls_zpa0001_table-positionid    = 20.
+        ls_zpa0001_table-perid  = '8999'.
+        ls_zpa0001_table-position_d = 'Developer'.
+        INSERT zpa0001 FROM @ls_zpa0001_table.
+        IF sy-subrc = 0.
+          out->write( 'Record 1 inserted successfully.' ).
+        ELSE.
+          out->write( 'Error inserting record 1.' ).
+          MODIFY zpa0001 FROM @ls_zpa0001_table.
+          IF sy-subrc = 0.
+            out->write( 'Record 1 updated successfully.' ).
+          ELSE.
+            out->write( 'Error updating record 1.' ).
+          ENDIF.
+
+        ENDIF.
+
+      " Insert first record
+        ls_ZPA0001_table-doj = '19811002'.
+        ls_zpa0001_table-positionid    = 21.
+        ls_zpa0001_table-perid  = '8990'.
+        ls_zpa0001_table-position_d = 'Manager'.
+        MODIFY zpa0001 FROM @ls_zpa0001_table.
+        IF sy-subrc = 0.
+          out->write( 'Record 1 inserted successfully.' ).
+        ELSE.
+          out->write( 'Error inserting record 1.' ).
+        ENDIF.
+
+
+
+        " You can also use a loop with an internal table for multiple entries
+       DATA: lt_your_table TYPE STANDARD TABLE OF zpa0001.
+
+        DATA(ls_data) = VALUE zpa0001( doj = '19781023' perid = '8991' positionid = '22' position_d = 'Cross M' ).
+        APPEND ls_data TO lt_your_table.
+
+        ls_data = VALUE zpa0001( doj = '19891024' perid = '8992' positionid = '23' position_d = 'Senior Developer' ).
+        APPEND ls_data TO lt_your_table.
+
+        MODIFY zpa0001 FROM TABLE @lt_your_table.
+        IF sy-subrc = 0.
+          out->write( 'Multiple records inserted successfully.' ).
+        ELSE.
+          out->write( 'Error inserting multiple records.' ).
+        ENDIF.
+
+  ENDMETHOD.
+ENDCLASS.
