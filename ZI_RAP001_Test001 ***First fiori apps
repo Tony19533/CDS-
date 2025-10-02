@@ -1,0 +1,27 @@
+***First fiori apps
+****ZI_RAP001_Test001 
+
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Insertation of RAP into table ZPA0000'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+serviceQuality: #X,
+sizeCategory: #S,
+dataClass: #MIXED
+}
+define view entity ZI_RAP001_Test001 
+as select from zpa0000 as emplhead
+inner join zpa0001  as posi
+on emplhead.perid = posi.perid 
+
+
+{
+key emplhead.perid as Perid,
+emplhead.name as Name,
+emplhead.age as Age,
+posi.positionid as Positionid, 
+posi.position_d as PositionD,
+posi.doj as Doj    
+}
